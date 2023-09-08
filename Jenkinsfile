@@ -11,6 +11,11 @@ pipeline {
                 [key: 'PR_ID', value: '$.pull_request.id']
             ],
             causeString: 'Triggered by $PR_TITLE #$PR_ID',
+            printContributedVariables: true,
+            printPostContent: true,
+            regexpFilterText: '$',
+            regexpFilterExpression: '$'
+            token: 'grave_app'
         )
     }
     environment {
