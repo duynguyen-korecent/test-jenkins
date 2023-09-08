@@ -5,11 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 checkout scm
+                sh 'which docker'
+                sh 'which docker-compose'
                 sh 'cp .env.example .env'
-                sh 'docker-compose up -d'
-                sh 'docker-compose run --rm composer install'
-                sh 'sleep 10 && docker-compose run --rm artisan key:generate'
-                sh 'docker-compose run --rm artisan migrate'
+                sh 'docker compose up -d'
+                sh 'docker compose run --rm composer install'
+                sh 'sleep 10 && docker compose run --rm artisan key:generate'
+                sh 'docker compose run --rm artisan migrate'
             }
         }
     }
