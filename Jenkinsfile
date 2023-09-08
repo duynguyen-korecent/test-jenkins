@@ -3,17 +3,13 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-                git branch: 'main', credentialsId: 'ssh-github', url: 'git@github.com:duynguyen-korecent/test-jenkins.git/'
-                sh 'composer install'
-                sh 'cp .env.example .env'
-                sh 'php artisan key:generate'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh './vendor/bin/phpunit'
-            }
+            checkout scm
+            sh 'pwd && cd src && /usr/local/bin/composer install'
+            sh 'cp .env.example .env'
+            sh 'cd src && /usr/local/bin/docker-compose up -d'
+            sh 'cd src && /usr/local/bin/docker-compose run --rm composer install'
+            sh 'sleep 10 && cd src && /usr/local/bin/docker-compose run --rm artisan key:generate'
+            sh 'cd src && /usr/local/bin/docker-compose run --rm artisan migrate'
         }
     }
 }
