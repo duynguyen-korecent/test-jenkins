@@ -1,5 +1,18 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'PR_TITLE', defaultValue: '', description: 'Pull Request Title')
+        string(name: 'PR_ID', defaultValue: 'NULL', description: 'Pull Request ID')
+    }
+    triggers {
+        GenericTrigger (
+            genericVariables: [
+                [key: 'PR_TITLE', value: '$PR_TITLE'],
+                [key: 'PR_ID', value: '$PR_ID']
+            ],
+            causeString: 'Triggered by $PR_TITLE #$PR_ID',
+        )
+    }
     environment {
         // Github Repository
         // Telegram Message Pre Build
@@ -14,6 +27,7 @@ pipeline {
         // Telegram Message Success and Failure
         TEXT_SUCCESS_BUILD = "${JOB_NAME} is Success"
         TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
+        
     }
     stages {
         stage('Pre-Build') {
