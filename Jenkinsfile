@@ -38,18 +38,18 @@ pipeline {
         // TEXT_SUCCESS_BUILD = "${JOB_NAME} is Success"
         // TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
         TEXT_FORMAT= """
-Repository: `${GIT_URL}`
-Mergre: *${BASE_BRANCH}* to: *${REF_BRANCH}*
-Pull Request: *${PR_TITLE}* #${PR_ID}
-Build: *${CURRENT_BUILD_NUMBER}*
+✨ Repository: `${GIT_URL}`
+🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*
+📦️ Pull Request: *${PR_TITLE}* #${PR_ID}
+🔨 Build: *${CURRENT_BUILD_NUMBER}*
 """
         TEXT_SUCCESS_BUILD = """
 ${TEXT_FORMAT}
-Status: *Success*
+✔️ Status: *Success*
 """
         TEXT_FAILURE_BUILD = """
 ${TEXT_FORMAT}
-Status: *Failure*
+❌ Status: *Failure*
 """
     }
     stages {
