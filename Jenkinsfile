@@ -17,10 +17,10 @@ pipeline {
                 sh 'docker compose run --rm artisan test'
             }
         }
-        post { 
-            always { 
-                echo 'I will always say Hello again!'
-            }
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
         }
     }
 }
