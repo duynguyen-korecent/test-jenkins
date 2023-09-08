@@ -1,10 +1,6 @@
 pipeline {
     agent any
     environment {
-        // Telegram configre
-        TOKEN = credentials('telegramToken')
-        CHAT_ID = credentials('telegramChatid')
-
         // Telegram Message Pre Build
         CURRENT_BUILD_NUMBER = "${currentBuild.number}"
         GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
@@ -21,7 +17,12 @@ pipeline {
     stages {
         stage('Pre-Build') {
             steps {
-                sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_PRE_BUILD}' --form chat_id='${CHAT_ID}'"
+                withCredentials([
+                    string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+                    string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')
+                ]) {
+                    sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_PRE_BUILD}' --form chat_id='${CHAT_ID}'"
+                }
             }
         }
         stage('Build') {
@@ -43,12 +44,22 @@ pipeline {
     post {
         success {
             script{
-                sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_SUCCESS_BUILD}' --form chat_id='${CHAT_ID}'"
+                withCredentials([
+                    string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+                    string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')
+                ]) {
+                    sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_SUCCESS_BUILD}' --form chat_id='${CHAT_ID}'"
+                }
             }
         }
         failure {
             script{
-                sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_FAILURE_BUILD}' --form chat_id='${CHAT_ID}'"
+                 withCredentials([
+                    string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+                    string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')
+                ]) {
+                    sh "curl --location --request POST 'https://api.telegram.org/bot${TOKEN}/sendMessage' --form text='${TEXT_FAILURE_BUILD}' --form chat_id='${CHAT_ID}'"
+                }
             }
         }
     }
