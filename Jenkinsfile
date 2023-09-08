@@ -7,8 +7,8 @@ pipeline {
     triggers {
         GenericTrigger (
             genericVariables: [
-                [key: 'PR_TITLE', value: '$PR_TITLE'],
-                [key: 'PR_ID', value: '$PR_ID']
+                [key: 'PR_TITLE', value: '$.pull_request.title'],
+                [key: 'PR_ID', value: '$.pull_request.id']
             ],
             causeString: 'Triggered by $PR_TITLE #$PR_ID',
         )
