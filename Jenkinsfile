@@ -12,7 +12,7 @@ pipeline {
             genericVariables: [
                 [key: 'PR_TITLE', value: '$.pull_request.title'],
                 [key: 'PR_ID', value: '$.pull_request.number'],
-                [key: 'ACTION', value: '$.action']
+                [key: 'ACTION', value: '$.action'],
                 [key: 'REF_BRANCH', value: '$.pull_request.head.ref'],
                 [key: 'BASE_BRANCH', value: '$.pull_request.base.ref'],
             ],
