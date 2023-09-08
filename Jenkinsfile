@@ -12,5 +12,15 @@ pipeline {
                 sh 'docker compose run --rm artisan migrate'
             }
         }
+        stage('Test') {
+            steps {
+                sh 'docker compose run --rm artisan test'
+            }
+        }
+        post { 
+            always { 
+                echo 'I will always say Hello again!'
+            }
+        }
     }
 }
