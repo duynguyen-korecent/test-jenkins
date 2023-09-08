@@ -4,6 +4,8 @@ pipeline {
         string(name: 'PR_TITLE', defaultValue: '', description: 'Pull Request Title')
         string(name: 'PR_ID', defaultValue: 'NULL', description: 'Pull Request ID')
         string(name: 'ACTION', defaultValue: '', description: 'Pull Request Action')
+        string(name: 'REF_BRANCH', defaultValue: '', description: 'Pull Request Ref Branch')
+        string(name: 'BASE_BRANCH', defaultValue: '', description: 'Pull Request Base Branch')
     }
     triggers {
         GenericTrigger (
@@ -11,6 +13,8 @@ pipeline {
                 [key: 'PR_TITLE', value: '$.pull_request.title'],
                 [key: 'PR_ID', value: '$.pull_request.number'],
                 [key: 'ACTION', value: '$.action']
+                [key: 'REF_BRANCH', value: '$.pull_request.head.ref'],
+                [key: 'BASE_BRANCH', value: '$.pull_request.base.ref'],
             ],
             causeString: 'Triggered by $PR_TITLE #$PR_ID',
             printContributedVariables: true,
@@ -34,8 +38,8 @@ pipeline {
         // TEXT_SUCCESS_BUILD = "${JOB_NAME} is Success"
         // TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
         TEXT_FORMAT= """
-Repository: ${GIT_URL}
-Mergre: *${GIT_BRANCH}* to: *${GIT_BRANCH}*
+Repository: `${GIT_URL}`
+Mergre: *${BASE_BRANCH}* to: *${REF_BRANCH}*
 Pull Request: *${PR_TITLE}* #${PR_ID}
 Build: *${CURRENT_BUILD_NUMBER}*
 """
