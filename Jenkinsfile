@@ -8,7 +8,7 @@ pipeline {
         // GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
         // GIT_AUTHOR = sh(returnStdout: true, script: "git log -n 1 --format=%ae ${GIT_COMMIT}").trim()
         // GIT_COMMIT_SHORT = sh(returnStdout: true, script: "git rev-parse --short ${GIT_COMMIT}").trim()
-        GIT_INFO = "Branch(Version): ${GIT_BRANCH}\nPull Request: ${PR_TITLE} #${PR_NUMBER}"
+        GIT_INFO = "Branch(Version): ${GIT_BRANCH}\nPull Request: ${pr_title} #${pr_id}"
         TEXT_BREAK = "--------------------------------------------------------------"
         TEXT_PRE_BUILD = "${TEXT_BREAK}\n${GIT_INFO}\n${JOB_NAME} is Building"
 
