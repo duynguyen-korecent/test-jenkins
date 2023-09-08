@@ -37,6 +37,11 @@ pipeline {
                 sh 'docker compose run --rm artisan test'
             }
         }
+        stage('End') {
+            steps {
+                sh 'docker compose down -v'
+            }
+        }
     }
     post {
         success {
