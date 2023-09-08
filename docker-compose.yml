@@ -12,8 +12,8 @@ services:
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    ports:
-      - "80:80"
+    # ports:
+    #   - "80:80"
     volumes:
       - ./:/var/www/html:delegated
     depends_on:
@@ -28,8 +28,8 @@ services:
     image: mariadb:10.6
     restart: unless-stopped
     tty: true
-    ports:
-      - "3306:3306"
+    # ports:
+    #   - "3306:3306"
     environment:
       MYSQL_DATABASE: infosur
       MYSQL_USER: homestead
@@ -47,8 +47,8 @@ services:
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
-    ports:
-      - "9000:9000"
+    # ports:
+    #   - "9000:9000"
     volumes:
       - ./:/var/www/html:delegated
     networks:
@@ -57,8 +57,8 @@ services:
   redis:
     image: redis:alpine
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    # ports:
+    #   - "6379:6379"
     networks:
       - laravel
 
@@ -81,10 +81,10 @@ services:
     image: node:current-alpine
     volumes:
       - ./:/var/www/html
-    ports:
-      - "3000:3000"
-      - "3001:3001"
-      - "5173:5173"
+    # ports:
+    #   - "3000:3000"
+    #   - "3001:3001"
+    #   - "5173:5173"
     working_dir: /var/www/html
     entrypoint: ["npm"]
     networks:
@@ -107,8 +107,8 @@ services:
 
   mailhog:
     image: mailhog/mailhog:latest
-    ports:
-      - "1025:1025"
-      - "8025:8025"
+    # ports:
+    #   - "1025:1025"
+    #   - "8025:8025"
     networks:
       - laravel
