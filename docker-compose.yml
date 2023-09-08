@@ -15,7 +15,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./test:/var/www/html:delegated
+      - ./:/var/www/html:delegated
     depends_on:
       - php
       - redis
@@ -50,7 +50,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./test:/var/www/html:delegated
+      - ./:/var/www/html:delegated
     networks:
       - laravel
 
@@ -70,7 +70,7 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./test:/var/www/html
+      - ./:/var/www/html
     depends_on:
       - php
     entrypoint: ["composer", "--ignore-platform-reqs"]
@@ -80,7 +80,7 @@ services:
   npm:
     image: node:current-alpine
     volumes:
-      - ./test:/var/www/html
+      - ./:/var/www/html
     ports:
       - "3000:3000"
       - "3001:3001"
@@ -98,7 +98,7 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
     volumes:
-      - ./test:/var/www/html:delegated
+      - ./:/var/www/html:delegated
     depends_on:
       - mysql
     entrypoint: ["php", "/var/www/html/artisan"]
