@@ -2,8 +2,6 @@ pipeline {
     agent any
     environment {
         // Github Repository
-        PR_ID = '$pr_id'
-        PR_TITLE = '$pr_title'
         // Telegram Message Pre Build
         CURRENT_BUILD_NUMBER = "${currentBuild.number}"
         // GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
