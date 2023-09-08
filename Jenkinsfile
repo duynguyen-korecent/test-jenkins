@@ -34,19 +34,19 @@ pipeline {
         // TEXT_SUCCESS_BUILD = "${JOB_NAME} is Success"
         // TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
         TEXT_FORMAT= """
-        Repository: ${GIT_URL}
-        Mergre: <b>${GIT_BRANCH}</b> to: <b>${GIT_BRANCH}</b>
-        Pull Request: <b>${PR_TITLE}</b> #${PR_ID}
-        Build: <b>${CURRENT_BUILD_NUMBER}</b>
-        """
+Repository: ${GIT_URL}
+Mergre: *${GIT_BRANCH}* to: *${GIT_BRANCH}*
+Pull Request: *${PR_TITLE}* #${PR_ID}
+Build: *${CURRENT_BUILD_NUMBER}*
+"""
         TEXT_SUCCESS_BUILD = """
-        ${TEXT_FORMAT}
-        Status: <b>Success</b>
-        """
+${TEXT_FORMAT}
+Status: *Success*
+"""
         TEXT_FAILURE_BUILD = """
-        ${TEXT_FORMAT}
-        Status: <b>Failure</b>
-        """
+${TEXT_FORMAT}
+Status: *Failure*
+"""
     }
     stages {
         // stage('Pre-Build') {
