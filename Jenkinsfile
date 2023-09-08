@@ -14,7 +14,7 @@ pipeline {
             printContributedVariables: true,
             printPostContent: true,
             regexpFilterText: '$',
-            regexpFilterExpression: '$'
+            regexpFilterExpression: '$',
             token: 'grave_app'
         )
     }
