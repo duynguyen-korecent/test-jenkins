@@ -29,7 +29,7 @@ pipeline {
     environment {
         // Github Repository
         // Telegram Message Pre Build
-        GITHUB_TOKEN= "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"
+        GITHUB_TOKEN= "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"
         CURRENT_BUILD_NUMBER = "${currentBuild.number}"
         // GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
         // GIT_AUTHOR = sh(returnStdout: true, script: "git log -n 1 --format=%ae ${GIT_COMMIT}").trim()
@@ -88,7 +88,13 @@ ${TEXT_FORMAT}
                 withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')]) {
                     sh 'curl --location --request POST "https://api.telegram.org/bot${TOKEN}/sendMessage" --form text="${TEXT_SUCCESS_BUILD}" --form chat_id="${CHAT_ID}" --form parse_mode="Markdown"'
                 }
-                sh 'curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -d  v{"body": "\${TEXT_SUCCESS_BUILD}"}\' ${URL_PULL_REQUEST}'
+                sh '''
+                            curl -H "Content-Type: application/json" \
+                                -H "Accept: application/vnd.github.v3+json" \
+                                -H "authorization: Bearer ${GITHUB_TOKEN}" \
+                                -d '{ "body": "${TEXT_SUCCESS_BUILD}" }' \
+                                ${URL_PULL_REQUEST}
+                    '''
             }
         }
         failure {
@@ -96,7 +102,13 @@ ${TEXT_FORMAT}
                 withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')]) {
                     sh 'curl --location --request POST "https://api.telegram.org/bot${TOKEN}/sendMessage" --form text="${TEXT_FAILURE_BUILD}" --form chat_id="${CHAT_ID}" --form parse_mode="Markdown"'
                 }
-                sh 'curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer ${GITHUB_TOKEN}" -d \'{"body": "\${TEXT_FAILURE_BUILD}"}\'  ${URL_PULL_REQUEST}'
+                    sh '''
+                            curl -H "Content-Type: application/json" \
+                                -H "Accept: application/vnd.github.v3+json" \
+                                -H "authorization: Bearer ${GITHUB_TOKEN}" \
+                                -d '{ "body": "${TEXT_FAILURE_BUILD}" }' \
+                                ${URL_PULL_REQUEST}
+                        '''
             }
         }
     }
