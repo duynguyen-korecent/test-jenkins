@@ -29,7 +29,7 @@ pipeline {
     environment {
         // Github Repository
         // Telegram Message Pre Build
-        GITHUB_TOKEN= "ghs_B61Q58sDwxL9h8QnWTgH86eM27gK2j1CrfMC"
+        GITHUB_TOKEN= "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"
         CURRENT_BUILD_NUMBER = "${currentBuild.number}"
         // GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
         // GIT_AUTHOR = sh(returnStdout: true, script: "git log -n 1 --format=%ae ${GIT_COMMIT}").trim()
