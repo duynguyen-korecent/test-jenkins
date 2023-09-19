@@ -50,13 +50,13 @@ pipeline {
 ${TEXT_FORMAT}
 ✔️ Status: *Success*
 """
-        TEXT_SUCCESS_BUILD_JSON = '{"body": "${TEXT_SUCCESS_BUILD}"}'
+        TEXT_SUCCESS_BUILD_JSON = "{\"body\": \"${TEXT_SUCCESS_BUILD}\"}"
         
         TEXT_FAILURE_BUILD = """
 ${TEXT_FORMAT}
 ❌ Status: *Failure*
 """
-        TEXT_FAILURE_BUILD_JSON = '{"body": "${TEXT_SUCCESS_BUILD}"}'
+        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"${TEXT_SUCCESS_BUILD}"}"
         
     }
     stages {
