@@ -29,7 +29,6 @@ pipeline {
     environment {
         // Github Repository
         // Telegram Message Pre Build
-        GITHUB_TOKEN= "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"
         CURRENT_BUILD_NUMBER = "${currentBuild.number}"
         // GIT_MESSAGE = sh(returnStdout: true, script: "git log -n 1 --format=%s ${GIT_COMMIT}").trim()
         // GIT_AUTHOR = sh(returnStdout: true, script: "git log -n 1 --format=%ae ${GIT_COMMIT}").trim()
@@ -85,23 +84,22 @@ ${TEXT_FORMAT}
     post {
         success {
             script{
-                withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')]) {
-                    sh 'curl --location --request POST "https://api.telegram.org/bot${TOKEN}/sendMessage" --form text="${TEXT_SUCCESS_BUILD}" --form chat_id="${CHAT_ID}" --form parse_mode="Markdown"'
-                }
-                sh '''
+                 withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID'), string(credentialsId: 'githubToken', variable: 'GITHUB_TOKEN')]) {
+                     sh 'curl --location --request POST "https://api.telegram.org/bot${TOKEN}/sendMessage" --form text="${TEXT_SUCCESS_BUILD}" --form chat_id="${CHAT_ID}" --form parse_mode="Markdown"'
+                     sh '''
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
                                 -H "authorization: Bearer ${GITHUB_TOKEN}" \
                                 -d '{ "body": "${TEXT_SUCCESS_BUILD}" }' \
                                 ${URL_PULL_REQUEST}
                     '''
+                 }
             }
         }
         failure {
             script{
-                withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID')]) {
+                withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'), string(credentialsId: 'telegramChatid', variable: 'CHAT_ID'), string(credentialsId: 'githubToken', variable: 'GITHUB_TOKEN')]) {
                     sh 'curl --location --request POST "https://api.telegram.org/bot${TOKEN}/sendMessage" --form text="${TEXT_FAILURE_BUILD}" --form chat_id="${CHAT_ID}" --form parse_mode="Markdown"'
-                }
                     sh '''
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
@@ -109,6 +107,7 @@ ${TEXT_FORMAT}
                                 -d '{ "body": "${TEXT_FAILURE_BUILD}" }' \
                                 ${URL_PULL_REQUEST}
                         '''
+                }
             }
         }
     }
