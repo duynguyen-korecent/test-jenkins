@@ -80,7 +80,7 @@ pipeline {
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
                                 -H "authorization: Bearer ${GITHUB_TOKEN}" \
-                                -d "{\"body\": \"✨ Repository: `${GIT_URL}`\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n\n✔️ Status: *Success*\"}" \
+                                -d "{\"body\": \"✨ Repository: ${GIT_URL}\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n\n✔️ Status: *Success*\"}" \
                                 ${URL_PULL_REQUEST}
                     '''
                  }
@@ -94,7 +94,7 @@ pipeline {
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
                                 -H "authorization: Bearer ${GITHUB_TOKEN}" \
-                                -d "{\"body\": \"✨ Repository: `${GIT_URL}`\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n\n❌ Status: *Failure*\"}" \
+                                -d "{\"body\": \"✨ Repository: ${GIT_URL}\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n\n❌ Status: *Failure*\"}" \
                                 ${URL_PULL_REQUEST}
                         '''
                 }
