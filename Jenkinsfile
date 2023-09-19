@@ -42,9 +42,9 @@ pipeline {
         // TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
         TEXT_FORMAT= "✨ Repository: `${GIT_URL}`\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n"
         TEXT_SUCCESS_BUILD = "${TEXT_FORMAT}\n\n✔️ Status: *Success*"
-        TEXT_SUCCESS_BUILD_JSON = "{\"body\": \"✔️ Status: *Success*\"}"
+        TEXT_SUCCESS_BUILD_JSON = "{\"body\": \"🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n✔️ Status: *Success*\"}"
         TEXT_FAILURE_BUILD = "${TEXT_FORMAT}\n\n❌ Status: *Failure*"
-        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"❌ Status: *Failure*\"}"
+        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n❌ Status: *Failure*\"}"
         
     }
     stages {
@@ -64,7 +64,7 @@ pipeline {
             steps {
                 checkout scm
                 sh 'cp .env.example .env'
-                sh 'docker compose  -p "grave_app_build_${CURRENT_BUILD_NUMBER}" up -d'
+                sh 'docker compose up -d'
                 sh 'docker compose run --rm composer install'
                 sh 'sleep 10 && docker compose run --rm artisan key:generate'
                 sh 'docker compose run --rm artisan migrate'
