@@ -56,7 +56,7 @@ ${TEXT_FORMAT}
 ${TEXT_FORMAT}
 ❌ Status: *Failure*
 """
-        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"${TEXT_SUCCESS_BUILD}"}"
+        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"${TEXT_SUCCESS_BUILD}\"}"
         
     }
     stages {
