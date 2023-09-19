@@ -50,10 +50,14 @@ pipeline {
 ${TEXT_FORMAT}
 ✔️ Status: *Success*
 """
+        TEXT_SUCCESS_BUILD_JSON = '{"body": "${TEXT_SUCCESS_BUILD}"}'
+        
         TEXT_FAILURE_BUILD = """
 ${TEXT_FORMAT}
 ❌ Status: *Failure*
 """
+        TEXT_FAILURE_BUILD_JSON = '{"body": "${TEXT_SUCCESS_BUILD}"}'
+        
     }
     stages {
         // stage('Pre-Build') {
@@ -90,7 +94,7 @@ ${TEXT_FORMAT}
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
                                 -H "authorization: Bearer ${GITHUB_TOKEN}" \
-                                -d '{ "body": "${TEXT_SUCCESS_BUILD}" }' \
+                                -d "${TEXT_FAILURE_BUILD_JSON}" \
                                 ${URL_PULL_REQUEST}
                     '''
                  }
@@ -104,7 +108,7 @@ ${TEXT_FORMAT}
                             curl -H "Content-Type: application/json" \
                                 -H "Accept: application/vnd.github.v3+json" \
                                 -H "authorization: Bearer ${GITHUB_TOKEN}" \
-                                -d '{ "body": "${TEXT_FAILURE_BUILD}" }' \
+                                -d "${TEXT_SUCCESS_BUILD_JSON}" \
                                 ${URL_PULL_REQUEST}
                         '''
                 }
