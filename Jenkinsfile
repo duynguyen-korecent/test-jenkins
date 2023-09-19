@@ -41,10 +41,11 @@ pipeline {
         // TEXT_SUCCESS_BUILD = "${JOB_NAME} is Success"
         // TEXT_FAILURE_BUILD = "${JOB_NAME} is Failure"
         TEXT_FORMAT= "✨ Repository: `${GIT_URL}`\n🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*\n📦️ Pull Request: *${PR_TITLE}* #${PR_ID}\n🔨 Build: *${CURRENT_BUILD_NUMBER}*\n"
+        TEXT_FORMAT_GITHUB= "✨ Repository: `${GIT_URL}`</br>🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*</br>📦️ Pull Request: *${PR_TITLE}* #${PR_ID}</br>🔨 Build: *${CURRENT_BUILD_NUMBER}*</br></br>"
         TEXT_SUCCESS_BUILD = "${TEXT_FORMAT}\n\n✔️ Status: *Success*"
-        TEXT_SUCCESS_BUILD_JSON = "{\"body\": \"✨ Repository: `${GIT_URL}`|🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*|📦️ Pull Request: *${PR_TITLE}* #${PR_ID}|🔨 Build: *${CURRENT_BUILD_NUMBER}*|✔️ Status: *Success*\"}"
+        TEXT_SUCCESS_BUILD_JSON = "{\"body\": \"${TEXT_FORMAT_GITHUB}✔️ Status: *Success*\"}"
         TEXT_FAILURE_BUILD = "${TEXT_FORMAT}\n\n❌ Status: *Failure*"
-        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"✨ Repository: `${GIT_URL}`|🔀 Mergre: *${BASE_BRANCH}* ⬅️ *${REF_BRANCH}*|📦️ Pull Request: *${PR_TITLE}* #${PR_ID}|🔨 Build: *${CURRENT_BUILD_NUMBER}*|❌ Status: *Failure*\"}"
+        TEXT_FAILURE_BUILD_JSON = "{\"body\": \"${TEXT_FORMAT_GITHUB}❌ Status: *Failure*\"}"
         
     }
     stages {
